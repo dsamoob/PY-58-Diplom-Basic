@@ -16,4 +16,3 @@ if __name__ == '__main__':
     pprint(vk.get_albums())
     result = vk.all_photos_from_album(221697831)
     print(ya.bu_all_photos_to_disk(result, quantity=12, album_name='Dondurmarmaris'))
-

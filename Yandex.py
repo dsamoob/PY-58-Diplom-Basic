@@ -2,6 +2,7 @@ import requests
 from tqdm import tqdm
 from datetime import datetime
 
+
 class YandexDisk:
     def __init__(self, token):
         self.token = token
@@ -73,9 +74,3 @@ class YandexDisk:
         response.raise_for_status()
         if response.status_code == 204:
             print('success')
-
-
-
-
-
-

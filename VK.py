@@ -3,7 +3,6 @@ import time
 from tqdm import tqdm
 
 
-
 class Vk:
     def __init__(self, token, vk_id):
         self.token = token
@@ -35,8 +34,8 @@ class Vk:
                     name_of_dict = str(photo['likes']['count'])
                     photo_list[name_of_dict] = \
                         {'likes': photo['likes']['count'],
-                        'type': photo['sizes'][-1]['type'],
-                        'url': photo['sizes'][-1]['url']}
+                         'type': photo['sizes'][-1]['type'],
+                         'url': photo['sizes'][-1]['url']}
                     photo_name_checking[photo['likes']['count']] += 1
                     time.sleep(0.1)
                 else:
