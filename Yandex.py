@@ -40,6 +40,7 @@ class YandexDisk:
         if len(dict_with_names_url) < quantity:
             return f'incorrect photos quantity'
         updated_photos_list = {}
+        result_of_uploading = []
         for number, (key, value) in enumerate(dict_with_names_url.items()):
             if number == quantity:
                 break
@@ -51,12 +52,14 @@ class YandexDisk:
                 response_href = self._get_upload_link(f'{album_name}/{name}.jpg')
                 url = response_href.get("href", "")
                 download_link = requests.get(info['url'])
-                response = requests.put(url, data=download_link.content)
-                response.raise_for_status()
+                requests.put(url, data=download_link.content)
+                result_of_uploading.append({'file_name': name, 'file_type': info['type']})
                 count += 1
             else:
-                return f'uploaded photos {quantity} from {len(dict_with_names_url)}'
-        return f'Uplading finished'
+                print(f'uploaded photos {quantity} from {len(dict_with_names_url)}')
+                return result_of_uploading
+        print(f'Uplading finished')
+        return result_of_uploading
 
     def _make_new_directory(self, dirname: str):
         url = "https://cloud-api.yandex.net/v1/disk/resources"

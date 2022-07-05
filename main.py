@@ -2,10 +2,11 @@ from VK import Vk
 from Yandex import YandexDisk
 from pprint import pprint
 
-app_id = ''
-vk_id = ''
-token_vk = ''
-token_yandex = ''
+vk_id = int()
+token_vk = str()
+token_yandex = str()
+album_id = int()
+album_name = str()
 
 
 if __name__ == '__main__':
@@ -13,6 +14,9 @@ if __name__ == '__main__':
     ya = YandexDisk(token_yandex)
     photos = vk.all_photos()
     pprint(photos)
-    pprint(vk.get_albums())
-    result = vk.all_photos_from_album(221697831)
-    print(ya.bu_all_photos_to_disk(result, quantity=12, album_name='Dondurmarmaris'))
+    albums = vk.get_albums()
+    pprint(albums)
+    photos_from_any_album = vk.all_photos_from_album(album_id)
+    pprint(photos_from_any_album)
+    result = ya.bu_all_photos_to_disk(photos_from_any_album, quantity=int, album_name=str)
+    pprint(result)
