@@ -3,6 +3,7 @@ import time
 from tqdm import tqdm
 
 
+
 class Vk:
     def __init__(self, token, vk_id):
         self.token = token
