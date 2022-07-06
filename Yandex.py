@@ -1,6 +1,7 @@
 import requests
 from tqdm import tqdm
 from datetime import datetime
+import json
 
 
 class YandexDisk:
@@ -52,13 +53,16 @@ class YandexDisk:
                 response_href = self._get_upload_link(f'{album_name}/{name}.jpg')
                 url = response_href.get("href", "")
                 download_link = requests.get(info['url'])
-                requests.put(url, data=download_link.content)
-                result_of_uploading.append({'file_name': name, 'file_type': info['type']})
+                response = requests.put(url, data=download_link.content)
+                response.raise_for_status()
                 count += 1
-            else:
-                print(f'uploaded photos {quantity} from {len(dict_with_names_url)}')
-                return result_of_uploading
-        print(f'Uplading finished')
+                if response.status_code == 201:
+                    result_of_uploading.append({'file_name': name, 'file_type': info['type'], 'upload_status': 'success'})
+                else:
+                    result_of_uploading.append(
+                        {'file_name': name, 'file_type': info['type'], 'upload_status': 'not uploaded'})
+        with open("result.json", "w", encoding="utf-8") as file:
+            json.dump(result_of_uploading, file)
         return result_of_uploading
 
     def _make_new_directory(self, dirname: str):
