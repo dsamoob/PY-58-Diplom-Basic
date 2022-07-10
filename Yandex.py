@@ -72,7 +72,7 @@ class YandexDisk:
         response = requests.put(url, headers=headers, params=params)
         response.raise_for_status()
         if response.status_code == 201:
-            print(f'directory with name {dirname} is ready')
+            print(f'directory with name: {dirname} is ready')
 
     def delete_file(self, file):
         url = "https://cloud-api.yandex.net/v1/disk/resources"
